@@ -7,10 +7,14 @@ from os import path
 
 
 class FileStorage:
-    """
-    File Storage Class
+    """Represents an abstracted storage engine.
+    
+    Attributes:
+        __file_path (str): The name of the file to save objects to.
+        __objects (dict): A dictionary of instaantiated objects.
    
     """
+    
     __file_path = 'objects.json'
     __objects = {}
 
