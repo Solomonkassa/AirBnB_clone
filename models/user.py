@@ -1,4 +1,5 @@
 #!usr/bin/python3
+""" Holds class user. """
 from models.base_model import BaseModel
 
 
