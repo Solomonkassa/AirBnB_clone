@@ -11,10 +11,11 @@ class Review(BaseModel):
     """A review of a place/house.
 
     Attributes:
-        text
-        user_id
-        place_id
+        text (str): The text of the review.
+        user_id (str): The user id.
+        place_id (str): The place id.
     """
+    
     text = ""
     user_id = ""
     place_id = ""
