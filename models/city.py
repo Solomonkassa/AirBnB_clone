@@ -11,8 +11,9 @@ class City(BaseModel):
     """A city in the application.
 
     Attributes:
-        name
-        state_id
+        name (str): The name of the city.
+        state_id (str): The state id.
     """
+    
     name = ""
     state_id = ""
