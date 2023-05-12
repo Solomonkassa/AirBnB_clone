@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Console Module """
 import cmd
-import shlex import split
+from shlex import split
 from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
@@ -38,10 +38,9 @@ class HBNBCommand(cmd.Cmd):
             print("{}".format(obj.id))
             obj.save()
         except SyntaxError:
-            print("** class name missing **")
-        except NameError:
             print("** class doesn't exist **")
-
+        except NameError:
+            print("** class name missing **")
     def do_show(self, line):
         """Prints the string representation of an instance
         Exceptions:
