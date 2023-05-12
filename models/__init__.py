@@ -1,6 +1,7 @@
-"""`Storage`  variable initializes  to create a
+#!/usr/bin/python3
+"""`
+Storage`  variable initializes  to create a
 unique `FileStorage` instance for the HBNB application.
-
 """
 
 from models.engine.file_storage import FileStorage
