@@ -12,9 +12,8 @@ class FileStorage:
     Attributes:
         __file_path (str): The name of the file to save objects to.
         __objects (dict): A dictionary of instaantiated objects.
-   
     """
-    
+ 
     __file_path = 'objects.json'
     __objects = {}
 
