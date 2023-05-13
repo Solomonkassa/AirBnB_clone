@@ -1,7 +1,7 @@
 ![logo](https://github.com/Solomonkassa/Solomonkassa/blob/main/hbnb.png)
 
 # Airbnb Console Project.
-
+------------------------------------------------------------------------------------------------------------------------------
 This Airbnb Console Project is a command-line interface tool that allows users to interact with an AirBnB-like database from the comfort of their terminal. It was developed using Python, and includes features like data manipulation, searching, filtering, and more.
 
 ## Getting Started
