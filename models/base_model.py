@@ -33,9 +33,9 @@ class BaseModel:
     def __str__(self):
         """
         Return [<class name>] (<self.id>) <self.__dict__>
-        Representation of the class for the user
-        
+        Representation of the class for the user.
         """
+        
         return "[{}] ({}) {}".format(
                 self.__class__.__name__, self.id, self.__dict__
             )
@@ -52,7 +52,7 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        """This method will be the first piece of the 
+        """This method will be the first piece of the
         
         serialization/deserialization process
         create a dictionary representation with 
