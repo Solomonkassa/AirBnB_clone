@@ -42,7 +42,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         except NameError:
             print("** class name missing **")
-            
     def do_show(self, line):
         """Prints the string representation of an instance
         Exceptions:
@@ -169,13 +168,14 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
     def do_count(self, arg):
         """ Counts number of instance of a class """
+        
         counter = 0
         objects = storage.all()
         for key in objects:
             if (arg in key):
                 counter += 1
         print(counter)
-   
-
+        
+        
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
