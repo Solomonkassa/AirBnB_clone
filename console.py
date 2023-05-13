@@ -4,13 +4,14 @@ import cmd
 from shlex import split
 from models.base_model import BaseModel
 
+
 class HBNBCommand(cmd.Cmd):
     """Contains the functionality for the HBNB console.
        The entry point of the command interpreter.
     """
     prompt = "(hbnb) "
     classes = {"BaseModel", "User", "State", "City",
-                   "Amenity", "Place", "Review"}
+               "Amenity", "Place", "Review"}
 
     def emptyline(self):
         """Ignores empty spaces"""
@@ -41,6 +42,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         except NameError:
             print("** class name missing **")
+            
     def do_show(self, line):
         """Prints the string representation of an instance
         Exceptions:
@@ -163,6 +165,7 @@ class HBNBCommand(cmd.Cmd):
         except AttributeError:
             print("** attribute name missing **")
         except ValueError:
+            
             print("** value missing **")
     def do_count(self, arg):
         """ Counts number of instance of a class """
@@ -172,6 +175,7 @@ class HBNBCommand(cmd.Cmd):
             if (arg in key):
                 counter += 1
         print(counter)
-           
+   
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
