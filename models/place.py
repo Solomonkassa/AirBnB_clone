@@ -1,5 +1,9 @@
 #!/usr/bin/python3
-""" Place Module for HBNB project """
+"""The `place` module
+
+It defines one class, `Place(),
+which sub-classes the `BaseModel()` class.`
+"""
 from models.base_model import BaseModel
 
 
@@ -8,6 +12,19 @@ class Place(BaseModel):
 
     It represents a place/house uploaded
     by the users of the application.
+
+    Attributes:
+        name
+        user_id
+        city_id
+        description
+        number_bathrooms
+        price_by_night
+        number_rooms
+        longitude
+        latitude
+        max_guest
+        amenity_ids
     """
 
     name = ""
