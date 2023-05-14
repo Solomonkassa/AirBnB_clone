@@ -80,21 +80,27 @@ class HBNBCommand(cmd.Cmd):
         """
         return super().do_help(line)
 
-    def do_create(self, arg):
-        """Creates a new instance.
+    def do_create(self, line):
+        """Creates a new instance of BaseModel, saves it
         """
-        args = arg.split()
-        if not validate_classname(args):
-            return
+        try:
+          args = line.split()
+          if not validate_classname(args):
+              return
 
-        obj = classes[args[0]]()
-        obj.save()
-        print(obj.id)
+          obj = classes[args[0]]()
+          obj.save()
+          print(obj.id)
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
 
-    def do_show(self, arg):
+
+    def do_show(self, line):
         """Prints the string representation of an instance.
         """
-        args = arg.split()
+        args = line.split()
         if not validate_classname(args, check_id=True):
             return
 
@@ -106,10 +112,10 @@ class HBNBCommand(cmd.Cmd):
             return
         print(req_instance)
 
-    def do_destroy(self, arg):
+    def do_destroy(self, line):
         """Deletes an instance based on the class name and id.
         """
-        args = arg.split()
+        args = line.split()
         if not validate_classname(args, check_id=True):
             return
 
@@ -123,10 +129,10 @@ class HBNBCommand(cmd.Cmd):
         del instance_objs[key]
         storage.save()
 
-    def do_all(self, arg):
+    def do_all(self, line):
         """Prints string representation of all instances.
         """
-        args = arg.split()
+        args = line.split()
         all_objs = storage.all()
 
         if len(args) < 1:
