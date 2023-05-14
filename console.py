@@ -13,7 +13,7 @@ from models.review import Review
 from models.amenity import Amenity
 from models.place import Place
 
-current_classes = {'BaseModel': BaseModel, 'User': User,
+classes_mapping = {'BaseModel': BaseModel, 'User': User,
                    'Amenity': Amenity, 'City': City, 'State': State,
                    'Place': Place, 'Review': Review}
 
@@ -92,7 +92,7 @@ class HBNBCommand(cmd.Cmd):
           if not validate_classname(args):
               return
 
-          new_obj = current_classes[args[0]]()
+          new_obj = classes_mapping[args[0]]()
           new_obj.save()
           print(new_obj.id)
         except SyntaxError:
@@ -159,12 +159,12 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 1:
             print(["{}".format(str(v)) for _, v in all_objs.items()])
             return
-        if args[0] not in current_classes.keys():
+        if args[0] not classes_mapping.keys():
             print("** class doesn't exist **")
             return
         else:
-            print(["{}".format(str(v))
-                  for _, v in all_objs.items() if type(v).__name__ == args[0]])
+            print(["{}".format(str(value))
+                  for _, value in all_objs.items() if type(value).__name__ == args[0]])
             return
 
     def do_update(self, arg: str):
@@ -189,8 +189,8 @@ class HBNBCommand(cmd.Cmd):
               except Exception:
                   print("** invalid syntax")
                   return
-              for k, v in payload.items():
-                  setattr(req_instance, k, v)
+              for key, value in payload.items():
+                  setattr(req_instance, key, value)
               storage.save()
               return
           if not validate_attrs(args):
@@ -223,7 +223,7 @@ def validate_classname(args, check_id=False):
     if len(args) < 1:
         print("** class name missing **")
         return False
-    if args[0] not in current_classes.keys():
+    if args[0] not in classes_mapping.keys():
         print("** class doesn't exist **")
         return False
     if len(args) < 2 and check_id:
