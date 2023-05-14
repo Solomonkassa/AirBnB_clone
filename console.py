@@ -26,7 +26,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     def precmd(self, line):
-        """Defines instructions to execute before <line> is interpreted.
+        """ Instructions to execute before <line> is interpreted.
         """
         if not line:
             return '\n'
@@ -63,71 +63,79 @@ class HBNBCommand(cmd.Cmd):
                     re.sub("[\"\']", "", args[0]),
                     re.sub("[\"\']", "", args[1]), args[2])
 
-    def do_EOF(self, line):
-        """Quit command to exit the program at end of file"""
-        print("")
-        return True
-
-    def do_quit(self, line):
-        """Quit command to exit the program. """
-        return True
-
-    def emptyline(self):
-        """Ignores empty spaces"""
-        pass
     
-    def do_help(self, line):
-        """To get help on a command, type help <topic>.
+
+    def do_create(self, line):
+        """Creates a new instance of BaseModel, saves it
         """
-        return super().do_help(line)
+        try:
+          args = line.split()
+          if not validate_classname(args):
+              return
 
-    def do_create(self, arg):
-        """Creates a new instance.
-        """
-        args = arg.split()
-        if not validate_classname(args):
-            return
+          obj = classes_mapping[args[0]]()
+          obj.save()
+          print(obj.id)
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
 
-        new_obj = current_classes[args[0]]()
-        new_obj.save()
-        print(new_obj.id)
 
-    def do_show(self, arg):
+    def do_show(self, line):
         """Prints the string representation of an instance.
         """
-        args = arg.split()
-        if not validate_classname(args, check_id=True):
-            return
+        try:
+          args = line.split()
+          if not validate_classname(args, check_id=True):
+              return
 
-        instance_objs = storage.all()
-        key = "{}.{}".format(args[0], args[1])
-        req_instance = instance_objs.get(key, None)
-        if req_instance is None:
+          instance_objs = storage.all()
+          key = "{}.{}".format(args[0], args[1])
+          req_instance = instance_objs.get(key, None)
+          if req_instance is None:
+              print("** no instance found **")
+              return
+          print(req_instance)
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
+        except IndexError:
+            print("** instance id missing **")
+        except KeyError:
             print("** no instance found **")
-            return
-        print(req_instance)
 
-    def do_destroy(self, arg):
+    def do_destroy(self, line):
         """Deletes an instance based on the class name and id.
         """
-        args = arg.split()
-        if not validate_classname(args, check_id=True):
-            return
+        try:
+          args = line.split()
+          if not validate_classname(args, check_id=True):
+              return
 
-        instance_objs = storage.all()
-        key = "{}.{}".format(args[0], args[1])
-        req_instance = instance_objs.get(key, None)
-        if req_instance is None:
+          instance_objs = storage.all()
+          key = "{}.{}".format(args[0], args[1])
+          req_instance = instance_objs.get(key, None)
+          if req_instance is None:
+              print("** no instance found **")
+              return
+
+          del instance_objs[key]
+          storage.save()
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
+        except IndexError:
+            print("** instance id missing **")
+        except KeyError:
             print("** no instance found **")
-            return
 
-        del instance_objs[key]
-        storage.save()
-
-    def do_all(self, arg):
+    def do_all(self, line):
         """Prints string representation of all instances.
         """
-        args = arg.split()
+        args = line.split()
         all_objs = storage.all()
 
         if len(args) < 1:
@@ -141,104 +149,116 @@ class HBNBCommand(cmd.Cmd):
                   for _, v in all_objs.items() if type(v).__name__ == args[0]])
             return
 
-    def do_update(self, arg: str):
-        """Updates an instance based on the class name and id.
-        """
-        args = arg.split(maxsplit=3)
-        if not validate_classname(args, check_id=True):
-            return
+    def do_update(self, line: str):
+        """Updates an object with new info"""
+        try:
+          args = line.split(maxsplit=3)
+          if not validate_classname(args, check_id=True):
+              return
 
-        instance_objs = storage.all()
-        key = "{}.{}".format(args[0], args[1])
-        req_instance = instance_objs.get(key, None)
-        if req_instance is None:
-            print("** no instance found **")
-            return
+          instance_objs = storage.all()
+          key = "{}.{}".format(args[0], args[1])
+          req_instance = instance_objs.get(key, None)
+          if req_instance is None:
+              print("** no instance found **")
+              return
 
-        match_json = re.findall(r"{.*}", arg)
-        if match_json:
-            payload = None
-            try:
-                payload: dict = json.loads(match_json[0])
-            except Exception:
-                print("** invalid syntax")
-                return
-            for key, value in payload.items():
-                setattr(req_instance, key, value)
-            storage.save()
-            return
-        if not validate_attrs(args):
-            return
-        first_attr = re.findall(r"^[\"\'](.*?)[\"\']", args[3])
-        if first_attr:
-            setattr(req_instance, args[2], first_attr[0])
-        else:
-            value_list = args[3].split()
-            setattr(req_instance, args[2], parse_str(value_list[0]))
-        storage.save()
-
-
-    def validate_classname(args, check_id=False):
-        """Runs checks on args to validate classname entry.
-        """
-        if len(args) < 1:
+          match_json = re.findall(r"{.*}", arg)
+          if match_json:
+              payload = None
+              try:
+                  payload: dict = json.loads(match_json[0])
+              except Exception:
+                  print("** invalid syntax")
+                  return
+              for key, value in payload.items():
+                  setattr(req_instance, key, value)
+              storage.save()
+              return
+          if not validate_attrs(args):
+              return
+          first_attr = re.findall(r"^[\"\'](.*?)[\"\']", args[3])
+          if first_attr:
+              setattr(req_instance, args[2], first_attr[0])
+          else:
+              value_list = args[3].split()
+              setattr(req_instance, args[2], parse_str(value_list[0]))
+          storage.save()
+        except SyntaxError:
             print("** class name missing **")
-            return False
-        if args[0] not in classes_mapping.keys():
+        except NameError:
             print("** class doesn't exist **")
-            return False
-        if len(args) < 2 and check_id:
+        except IndexError:
             print("** instance id missing **")
-            return False
-        return True
-
-
-    def validate_attrs(args):
-        """Runs checks on args to validate classname attributes and values.
-        """
-        if len(args) < 3:
+        except KeyError:
+            print("** no instance found **")
+        except AttributeError:
             print("** attribute name missing **")
-            return False
-        if len(args) < 4:
+        except ValueError:
             print("** value missing **")
-            return False
+
+
+def validate_classname(args, check_id=False):
+    """Checks on args to validate classname entry.
+    """
+    if len(args) < 1:
+        print("** class name missing **")
+        return False
+    if args[0] not in classes_mapping.keys():
+        print("** class doesn't exist **")
+        return False
+    if len(args) < 2 and check_id:
+        print("** instance id missing **")
+        return False
+    return True
+
+
+def validate_attrs(args):
+    """Checks on args to validate classname attributes and values.
+    """
+    if len(args) < 3:
+        print("** attribute name missing **")
+        return False
+    if len(args) < 4:
+        print("** value missing **")
+        return False
+    return True
+
+
+def is_float(x):
+    """Checks if `x` is float.
+    """
+    try:
+        a = float(x)
+    except (TypeError, ValueError):
+        return False
+    else:
         return True
-    
-
-    def is_float(x):
-        """Checks if `x` is float.
-        """
-        try:
-            a = float(x)
-        except (TypeError, ValueError):
-            return False
-        else:
-            return True
 
 
-    def is_int(x):
-        """Checks if `x` is int.
-        """
-        try:
-            a = float(x)
-            b = int(a)
-        except (TypeError, ValueError):
-            return False
-        else:
-            return a == b
+def is_int(x):
+    """Checks if `x` is int.
+    """
+    try:
+        a = float(x)
+        b = int(a)
+    except (TypeError, ValueError):
+        return False
+    else:
+        return a == b
 
 
-    def parse_str(arg):
-        """Parse `arg` to an `int`, `float` or `string`.
-        """
-        parsed = re.sub("\"", "", arg)
-    
-        if is_int(parsed):
-            return int(parsed)
-        elif is_float(parsed):
-            return float(parsed)
-        else:
-            return arg
+def parse_str(arg):
+    """Parse `arg` to an `int`, `float` or `string`.
+    """
+    parsed = re.sub("\"", "", arg)
+
+    if is_int(parsed):
+        return int(parsed)
+    elif is_float(parsed):
+        return float(parsed)
+    else:
+        return arg
 
 
 if __name__ == "__main__":
