@@ -35,7 +35,7 @@ class BaseModel():
     def __str__(self):
         """
         Returns the string representation
-        of the instances
+        of the instances.
         """
         return "[{}] ({}) {}".format(
             type(self).__name__, self.id, self.__dict__)
