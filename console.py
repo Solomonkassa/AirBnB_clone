@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 """ Console Module  of the command interpreter."""
-import re
-import cmd
-import json
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -11,6 +8,9 @@ from models.city import City
 from models.review import Review
 from models.amenity import Amenity
 from models.place import Place
+import re
+import cmd
+import json
 
 classes = {'BaseModel': BaseModel, 'User': User,
                    'Amenity': Amenity, 'City': City, 'State': State,
