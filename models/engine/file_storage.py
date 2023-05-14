@@ -19,7 +19,7 @@ class FileStorage():
     """
     serializes instances to a JSON file and
     deserializes JSON file to instances
-    __file_path: path to the JSON file
+    __file_path: path to the JSON file.
     __objects: objects will be stored
     """
 
