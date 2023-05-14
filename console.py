@@ -88,9 +88,10 @@ class HBNBCommand(cmd.Cmd):
           if not validate_classname(args):
               return
 
-          obj = classes_mapping[args[0]]()
-          obj.save()
-          print(obj.id)
+          new_obj = current_classes[args[0]]()
+          new_obj.save()
+          print(new_obj.id)
+
         except SyntaxError:
             print("** class name missing **")
         except NameError:
@@ -160,8 +161,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         else:
-            print(["{}".format(str(v))
-                  for _, v in all_objs.items() if type(v).__name__ == args[0]])
+            print(["{}".format(str(value))
+                  for _, value in all_objs.items() if type(value).__name__ == args[0]])
             return
 
     def do_update(self, arg: str):
