@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """Testing the `base_model` module."""
 import json
 import os
