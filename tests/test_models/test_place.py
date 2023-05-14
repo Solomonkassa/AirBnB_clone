@@ -60,7 +60,7 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(p1.__str__(), string)
 
     def test_save(self):
-        """Test method for save"""
+        """Test method for save."""
         p1 = Place()
         old_update = p1.updated_at
         p1.save()
