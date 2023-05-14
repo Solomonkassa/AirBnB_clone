@@ -92,7 +92,7 @@ class TestBase(unittest.TestCase):
         self.assertEqual(str(e.exception), msg)
 
     def test_str(self):
-        """Test method for str representation."""
+        """Test method for str representation"""
         b1 = BaseModel()
         string = f"[{type(b1).__name__}] ({b1.id}) {b1.__dict__}"
         self.assertEqual(b1.__str__(), string)
