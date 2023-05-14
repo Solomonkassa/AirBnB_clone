@@ -78,81 +78,59 @@ class HBNBCommand(cmd.Cmd):
         """Override default `empty line + return` behaviour.
         """
         pass
+      
     def do_help(self, arg):
         """To get help on a command, type help <topic>.
         """
         return super().do_help(arg)
-
-    def do_create(self, line):
+      
+    def do_create(self, arg):
         """Creates a new instance.
         """
-        try: 
-            args = line.split()
-            if not validate_classname(args):
-                return
+        args = arg.split()
+        if not validate_classname(args):
+            return
 
-            new_obj = current_classes[args[0]]()
-            new_obj.save()
-            print(new_obj.id)
-        except SyntaxError:
-            print("** class name missing **")
-        except NameError:
-            print("** class doesn't exist **")
+        new_obj = current_classes[args[0]]()
+        new_obj.save()
+        print(new_obj.id)
 
-    def do_show(self, line):
+    def do_show(self, arg):
         """Prints the string representation of an instance.
         """
-        try:
-            args = line.split()
-            if not validate_classname(args, check_id=True):
-                return
+        args = arg.split()
+        if not validate_classname(args, check_id=True):
+            return
 
-            instance_objs = storage.all()
-            key = "{}.{}".format(args[0], args[1])
-            req_instance = instance_objs.get(key, None)
-            if req_instance is None:
-                print("** no instance found **")
-                return
-            print(req_instance)
-        except SyntaxError:
-            print("** class name missing **")
-        except NameError:
-            print("** class doesn't exist **")
-        except IndexError:
-            print("** instance id missing **")
-        except KeyError:
+        instance_objs = storage.all()
+        key = "{}.{}".format(args[0], args[1])
+        req_instance = instance_objs.get(key, None)
+        if req_instance is None:
             print("** no instance found **")
+            return
+        print(req_instance)
 
-    def do_destroy(self, line):
+    def do_destroy(self, arg):
         """Deletes an instance based on the class name and id.
         """
-        try:
-            args = arg.line()
-            if not validate_classname(args, check_id=True):
-                return
+        args = arg.split()
+        if not validate_classname(args, check_id=True):
+            return
 
-            instance_objs = storage.all()
-            key = "{}.{}".format(args[0], args[1])
-            req_instance = instance_objs.get(key, None)
-            if req_instance is None:
-                print("** no instance found **")
-                return
-
-            del instance_objs[key]
-            storage.save()
-        except SyntaxError:
-            print("** class name missing **")
-        except NameError:
-            print("** class doesn't exist **")
-        except IndexError:
-            print("** instance id missing **")
-        except KeyError:
+        instance_objs = storage.all()
+        key = "{}.{}".format(args[0], args[1])
+        req_instance = instance_objs.get(key, None)
+        if req_instance is None:
             print("** no instance found **")
+            return
 
-    def do_all(self, line):
+        del instance_objs[key]
+        storage.save()
+
+    def do_all(self, arg):
         """Prints string representation of all instances.
         """
-        args = line.split()
+        args = arg.split()
         all_objs = storage.all()
 
         if len(args) < 1:
@@ -165,7 +143,7 @@ class HBNBCommand(cmd.Cmd):
             print(["{}".format(str(v))
                   for _, v in all_objs.items() if type(v).__name__ == args[0]])
             return
-     
+
     def do_update(self, arg: str):
         """Updates an instance based on the class name and id.
         """
