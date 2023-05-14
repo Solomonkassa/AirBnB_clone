@@ -44,7 +44,7 @@ class TestPlace(unittest.TestCase):
         self.assertIsInstance(p1.amenity_ids, list)
 
     def test_init(self):
-        """Test method for public instances"""
+        """Test method for public instances."""
 
         p1 = Place()
         p2 = Place(**p1.to_dict())
