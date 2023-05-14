@@ -78,20 +78,18 @@ class HBNBCommand(cmd.Cmd):
         """Override default `empty line + return` behaviour.
         """
         pass
-      
     def do_help(self, arg):
         """To get help on a command, type help <topic>.
         """
         return super().do_help(arg)
       
     def do_create(self, arg):
-        """Creates a new instance.
+      """Creates a new instance.
         """
         try:
           args = arg.split()
           if not validate_classname(args):
-              return
-
+            return
           new_obj = classes_mapping[args[0]]()
           new_obj.save()
           print(new_obj.id)
