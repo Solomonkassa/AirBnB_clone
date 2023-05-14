@@ -40,7 +40,7 @@ class TestState(unittest.TestCase):
         self.assertEqual(u1.updated_at, u2.updated_at)
 
     def test_str(self):
-        """Test method for str representation"""
+        """Test method for str representation."""
         u1 = User()
         string = f"[{type(u1).__name__}] ({u1.id}) {u1.__dict__}"
         self.assertEqual(u1.__str__(), string)
