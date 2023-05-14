@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """
+This module defines a base class for all models in our hbnb clone
 Module: base.py
 """
 import models
@@ -8,9 +9,7 @@ from datetime import datetime
 
 
 class BaseModel():
-    """
-    Base class which defines all common
-    attributes/methods for other classes
+    """A base class for all hbnb models
     """
 
     def __init__(self, *args, **kwargs):
