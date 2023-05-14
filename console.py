@@ -92,7 +92,7 @@ class HBNBCommand(cmd.Cmd):
           if not validate_classname(args):
               return
 
-          new_obj = current_classes[args[0]]()
+          new_obj = classes_mapping[args[0]]()
           new_obj.save()
           print(new_obj.id)
         except SyntaxError:
