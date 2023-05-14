@@ -22,7 +22,7 @@ class TestPlace(unittest.TestCase):
             os.remove(FileStorage._FileStorage__file_path)
 
     def test_params(self):
-        """Test method for class attributes"""
+        """Test method for class attributes."""
 
         p1 = Place()
         p3 = Place("hello", "wait", "in")
