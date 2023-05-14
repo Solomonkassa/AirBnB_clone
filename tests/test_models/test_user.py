@@ -46,7 +46,7 @@ class TestState(unittest.TestCase):
         self.assertEqual(u1.__str__(), string)
 
     def test_save(self):
-        """Test method for save"""
+        """Test method for save."""
         u1 = User()
         old_update = u1.updated_at
         u1.save()
