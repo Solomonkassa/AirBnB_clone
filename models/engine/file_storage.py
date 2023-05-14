@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This module defines a class to manage file storage for hbnb clone
+This module defines a class to manage file storage for hbnb clone.
 Module: file_storage.py
 Defines a `FileStorage` class.
 """
