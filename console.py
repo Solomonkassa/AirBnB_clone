@@ -78,6 +78,7 @@ class HBNBCommand(cmd.Cmd):
         """Override default `empty line + return` behaviour.
         """
         pass
+      
     def do_help(self, arg):
         """To get help on a command, type help <topic>.
         """
@@ -210,66 +211,63 @@ class HBNBCommand(cmd.Cmd):
         print("** value missing **")
 
         
-def validate_classname(args, check_id=False):
-    """Runs checks on args to validate classname entry.
-    """
-    if len(args) < 1:
+    def validate_classname(args, check_id=False):
+      """Runs checks on args to validate classname entry.
+      """
+      if len(args) < 1:
         print("** class name missing **")
         return False
-    if args[0] not in classes_mapping.keys():
+      if args[0] not in classes_mapping.keys():
         print("** class doesn't exist **")
         return False
-    if len(args) < 2 and check_id:
+      if len(args) < 2 and check_id:
         print("** instance id missing **")
         return False
-    return True
+      return True
 
   
-def validate_attrs(args):
-    """Runs checks on args to validate classname attributes and values.
-    """
-    if len(args) < 3:
+    def validate_attrs(args):
+      """Runs checks on args to validate classname attributes and values.
+      """
+      if len(args) < 3:
         print("** attribute name missing **")
         return False
-    if len(args) < 4:
+      if len(args) < 4:
         print("** value missing **")
         return False
-    return True
+      return True
 
   
-def is_float(x):
-    """Checks if `x` is float.
-    """
-    try:
+    def is_float(x):
+      """Checks if `x` is float."""
+      try:
         a = float(x)
-    except (TypeError, ValueError):
+      except (TypeError, ValueError):
         return False
-    else:
+      else:
         return True
 
       
-def is_int(x):
-    """Checks if `x` is int.
-    """
-    try:
+    def is_int(x):
+      """Checks if `x` is int."""
+      try:
         a = float(x)
         b = int(a)
-    except (TypeError, ValueError):
+      except (TypeError, ValueError):
         return False
-    else:
+      else:
         return a == b
 
       
-def parse_str(arg):
-    """Parse `arg` to an `int`, `float` or `string`.
-    """
-    parsed = re.sub("\"", "", arg)
-
-    if is_int(parsed):
+    def parse_str(arg):
+      """Parse `arg` to an `int`, `float` or `string`.
+      """
+      parsed = re.sub("\"", "", arg)
+      if is_int(parsed):
         return int(parsed)
-    elif is_float(parsed):
+      elif is_float(parsed):
         return float(parsed)
-    else:
+      else:
         return arg
 
       
