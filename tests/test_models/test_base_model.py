@@ -54,7 +54,7 @@ class TestBase(unittest.TestCase):
             b2.to_dict()
 
     def test_save(self):
-        """Test method for save"""
+        """Test method for save."""
         b = BaseModel()
         time.sleep(0.5)
         date_now = datetime.now()
