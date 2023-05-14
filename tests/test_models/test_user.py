@@ -31,7 +31,7 @@ class TestState(unittest.TestCase):
         self.assertIsInstance(u1.last_name, str)
 
     def test_init(self):
-        """Test method for public instances"""
+        """Test method for public instances."""
         u1 = User()
         u2 = User(**u1.to_dict())
         self.assertIsInstance(u1.id, str)
