@@ -26,101 +26,101 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     def precmd(self, line):
-      """Defines instructions to execute before <line> is interpreted.
-      """
-      if not line:
-        return '\n'\
+        """Defines instructions to execute before <line> is interpreted.
+        """
+        if not line:
+          return '\n'\
     
-      pattern = re.compile(r"(\w+)\.(\w+)\((.*)\)")
-      match_list = pattern.findall(line)
-      if not match_list:
-        return super().precmd(line)
+        pattern = re.compile(r"(\w+)\.(\w+)\((.*)\)")
+        match_list = pattern.findall(line)
+        if not match_list:
+          return super().precmd(line)
 
-      match_tuple = match_list[0]
-      if not match_tuple[2]:
-        if match_tuple[1] == "count":
-          instance_objs = storage.all()
-          print(len([
-            v for _, v in instance_objs.items()
-            if type(v).__name__ == match_tuple[0]]))
-          return "\n"
-        return "{} {}".format(match_tuple[1], match_tuple[0])
-      else:
-        args = match_tuple[2].split(", ")
-        if len(args) == 1:
-          return "{} {} {}".format(
-            match_tuple[1], match_tuple[0],
-            re.sub("[\"\']", "", match_tuple[2]))
+        match_tuple = match_list[0]
+        if not match_tuple[2]:
+          if match_tuple[1] == "count":
+            instance_objs = storage.all()
+            print(len([
+              v for _, v in instance_objs.items()
+              if type(v).__name__ == match_tuple[0]]))
+            return "\n"
+          return "{} {}".format(match_tuple[1], match_tuple[0])
         else:
-          match_json = re.findall(r"{.*}", match_tuple[2])
-          if (match_json):
-            return "{} {} {} {}".format(
+          args = match_tuple[2].split(", ")
+          if len(args) == 1:
+            return "{} {} {}".format(
+              match_tuple[1], match_tuple[0],
+              re.sub("[\"\']", "", match_tuple[2]))
+          else:
+            match_json = re.findall(r"{.*}", match_tuple[2])
+            if (match_json):
+              return "{} {} {} {}".format(
+                match_tuple[1], match_tuple[0],
+                re.sub("[\"\']", "", args[0]),
+                re.sub("\'", "\"", match_json[0]))
+            return "{} {} {} {} {}".format(
               match_tuple[1], match_tuple[0],
               re.sub("[\"\']", "", args[0]),
-              re.sub("\'", "\"", match_json[0]))
-          return "{} {} {} {} {}".format(
-            match_tuple[1], match_tuple[0],
-            re.sub("[\"\']", "", args[0]),
-            re.sub("[\"\']", "", args[1]), args[2])
+              re.sub("[\"\']", "", args[1]), args[2])
 
     def do_EOF(self, line):
-      """Inbuilt EOF command to gracefully catch errors.
-      """
-      print("")
-      return True
+        """Inbuilt EOF command to gracefully catch errors.
+        """
+        print("")
+        return True
 
     def do_quit(self, arg):
-      """Quit command to exit the program.
-      """
-      return True
+        """Quit command to exit the program.
+        """
+        return True
 
     def emptyline(self):
-      """Override default `empty line + return` behaviour.
-      """
-      pass
+        """Override default `empty line + return` behaviour.
+        """
+        pass
       
     def do_help(self, arg):
-      """To get help on a command, type help <topic>.
-      """
-      return super().do_help(arg)
+        """To get help on a command, type help <topic>.
+        """
+        return super().do_help(arg)
       
     def do_create(self, arg):
-      """Creates a new instance.
-      """
-      try:
-        args = arg.split()
-        if not validate_classname(args):
-          return
-        new_obj = classes_mapping[args[0]]()
-        new_obj.save()
-        print(new_obj.id)
-      except SyntaxError:
-        print("** class name missing **")
-      except NameError:
-        print("** class doesn't exist **")
+        """Creates a new instance.
+        """
+        try:
+          args = arg.split()
+          if not validate_classname(args):
+            return
+          new_obj = classes_mapping[args[0]]()
+          new_obj.save()
+          print(new_obj.id)
+        except SyntaxError:
+          print("** class name missing **")
+        except NameError:
+          print("** class doesn't exist **")
         
     def do_show(self, arg):
-      """Prints the string representation of an instance.
-      """
-      try:
-        args = arg.split()
-        if not validate_classname(args, check_id=True):
-          return
-        instance_objs = storage.all()
-        key = "{}.{}".format(args[0], args[1])
-        req_instance = instance_objs.get(key, None)
-        if req_instance is None:
+        """Prints the string representation of an instance.
+        """
+        try:
+          args = arg.split()
+          if not validate_classname(args, check_id=True):
+            return
+          instance_objs = storage.all()
+          key = "{}.{}".format(args[0], args[1])
+          req_instance = instance_objs.get(key, None)
+          if req_instance is None:
+            print("** no instance found **")
+            return
+          print(req_instance)
+        except SyntaxError:
+          print("** class name missing **")
+        except NameError:
+          print("** class doesn't exist **")
+        except IndexError:
+          print("** instance id missing **")
+        except KeyError:
           print("** no instance found **")
-          return
-        print(req_instance)
-      except SyntaxError:
-        print("** class name missing **")
-      except NameError:
-        print("** class doesn't exist **")
-      except IndexError:
-        print("** instance id missing **")
-      except KeyError:
-        print("** no instance found **")
 
     def do_destroy(self, arg):
       """Deletes an instance based on the class name and id."""
