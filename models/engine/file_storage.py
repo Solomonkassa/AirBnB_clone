@@ -50,7 +50,7 @@ class FileStorage():
     def reload(self):
         """
         deserializes the JSON file to __objects only if the JSON
-        file exists; otherwise, does nothing
+        file exists; otherwise, does nothing.
         """
         current_classes = {'BaseModel': BaseModel, 'User': User,
                            'Amenity': Amenity, 'City': City, 'State': State,
