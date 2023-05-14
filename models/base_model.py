@@ -1,17 +1,12 @@
 #!/usr/bin/python3
-"""
-Module: base.py
-"""
+"""This module defines a base class for all models in our hbnb clone"""
 import models
 import uuid
 from datetime import datetime
 
 
 class BaseModel():
-    """
-    Base class which defines all common
-    attributes/methods for other classes
-    """
+    """A base class for all hbnb models"""
 
     def __init__(self, *args, **kwargs):
         """
@@ -34,18 +29,12 @@ class BaseModel():
         models.storage.new(self)
 
     def __str__(self):
-        """
-        Returns the string representation
-        of the instance
-        """
+        """Returns a string representation of the instance"""
         return "[{}] ({}) {}".format(
             type(self).__name__, self.id, self.__dict__)
 
     def save(self):
-        """
-        updates the public instance attribute
-        updated_at with the current datetime
-        """
+        """Updates updated_at with current time when instance is changed"""
         self.updated_at = datetime.now()
         models.storage.save()
 
