@@ -1,9 +1,5 @@
 #!/usr/bin/python3
-"""The `amenity` module
-
-It defines one class, `Amenity(),
-which sub-classes the `BaseModel()` class.`
-"""
+""" State Module for HBNB project """
 from models.base_model import BaseModel
 
 
