@@ -88,13 +88,13 @@ class HBNBCommand(cmd.Cmd):
         """Creates a new instance.
         """
         try:
-            args = arg.split()
-            if not validate_classname(args):
-              return
+         args = arg.split()
+         if not validate_classname(args):
+            return
 
-            new_obj = classes_mapping[args[0]]()
-            new_obj.save()
-            print(new_obj.id)
+         new_obj = current_classes[args[0]]()
+         new_obj.save()
+         print(new_obj.id)
         except SyntaxError:
             print("** class name missing **")
         except NameError:
