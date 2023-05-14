@@ -77,13 +77,11 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Override default `empty line + return` behaviour.
         """
-        pass
-      
+        pass 
     def do_help(self, arg):
         """To get help on a command, type help <topic>.
         """
         return super().do_help(arg)
-      
     def do_create(self, arg):
         """Creates a new instance.
         """
