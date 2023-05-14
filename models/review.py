@@ -1,13 +1,23 @@
 #!/usr/bin/python3
-""" Review module for the HBNB project """
-from models.base_model import BaseModel, Base
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, ForeignKey, Float
+"""The `review` module.
+
+It defines one class, `Review(),
+which sub-classes the `BaseModel()` class.`
+"""
+from models.base_model import BaseModel
 
 
-class Review(BaseModel, Base):
-    """ Review classto store review information """
-    __tablename__ = "reviews"
-    text = Column(String(1024), nullable=False)
-    place_id = Column(String(60), ForeignKey("places.id"), nullable=False)
-    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
+class Review(BaseModel):
+    """A review of a place/house.
+
+    It represents a review posted by the users
+    of the application about a place/house.
+
+    Attributes:
+        text
+        user_id
+        place_id
+    """
+    text = ""
+    user_id = ""
+    place_id = ""
