@@ -100,34 +100,52 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """Prints the string representation of an instance.
         """
-        args = line.split()
-        if not validate_classname(args, check_id=True):
-            return
+        try:
+          args = line.split()
+          if not validate_classname(args, check_id=True):
+              return
 
-        instance_objs = storage.all()
-        key = "{}.{}".format(args[0], args[1])
-        req_instance = instance_objs.get(key, None)
-        if req_instance is None:
+          instance_objs = storage.all()
+          key = "{}.{}".format(args[0], args[1])
+          req_instance = instance_objs.get(key, None)
+          if req_instance is None:
+              print("** no instance found **")
+              return
+          print(req_instance)
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
+        except IndexError:
+            print("** instance id missing **")
+        except KeyError:
             print("** no instance found **")
-            return
-        print(req_instance)
 
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id.
         """
-        args = line.split()
-        if not validate_classname(args, check_id=True):
-            return
+        try:
+          args = line.split()
+          if not validate_classname(args, check_id=True):
+              return
 
-        instance_objs = storage.all()
-        key = "{}.{}".format(args[0], args[1])
-        req_instance = instance_objs.get(key, None)
-        if req_instance is None:
+          instance_objs = storage.all()
+          key = "{}.{}".format(args[0], args[1])
+          req_instance = instance_objs.get(key, None)
+          if req_instance is None:
+              print("** no instance found **")
+              return
+
+          del instance_objs[key]
+          storage.save()
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
+        except IndexError:
+            print("** instance id missing **")
+        except KeyError:
             print("** no instance found **")
-            return
-
-        del instance_objs[key]
-        storage.save()
 
     def do_all(self, line):
         """Prints string representation of all instances.
