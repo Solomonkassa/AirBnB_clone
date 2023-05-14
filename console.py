@@ -88,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
         """Creates a new instance.
         """
         try:
-            args = arg.split()
+          args = arg.split()
           if not validate_classname(args):
               return
 
