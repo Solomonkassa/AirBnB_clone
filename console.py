@@ -62,8 +62,27 @@ class HBNBCommand(cmd.Cmd):
                     match_tuple[1], match_tuple[0],
                     re.sub("[\"\']", "", args[0]),
                     re.sub("[\"\']", "", args[1]), args[2])
+   
+    def do_EOF(self, line):
+        """Quit command to exit the program at end of file"""
+        print("")
+        return True
 
-    
+    def do_quit(self, arg):
+        """Quit command to exit the program.
+        """
+        return True
+
+    def emptyline(self):
+        """Override default `empty line + return` behaviour.
+        """
+        pass
+      
+    def do_help(self, arg):
+        """To get help on a command, type help <topic>.
+        """
+        return super().do_help(arg)
+
 
     def do_create(self, line):
         """Creates a new instance of BaseModel, saves it
