@@ -54,7 +54,7 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(p1.updated_at, p2.updated_at)
 
     def test_str(self):
-        """Test method for str representation"""
+        """Test method for str representation."""
         p1 = Place()
         string = f"[{type(p1).__name__}] ({p1.id}) {p1.__dict__}"
         self.assertEqual(p1.__str__(), string)
