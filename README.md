@@ -2,11 +2,11 @@
 
 # Airbnb Console Project.
 ------------------------------------------------------------------------------------------------------------------------------
-This Airbnb Console Project is a command-line interface tool that allows users to interact with an AirBnB-like database from the comfort of their terminal. It was developed using Python, and includes features like data manipulation, searching, filtering, and more.
+This Airbnb Console Project is a command-line interface tool that allows user to interact with an AirBnB-like database from the comfort of their terminal. It was developed using Python, and includes features like data manipulation, searching, filtering, and more.
 
 ## Getting Started
 
-To get started with this project, you'll need to have Python 3 installed on your system. You can download the latest version of Python from the official website. Once you have Python installed, you can clone the repository and install the necessary dependencies using pip:
+To get started with this project, you'll need to have Python3 installed on your system. You can download the latest version of Python from the official website. Once you have Python installed, you can clone the repository and install the necessary dependencies using pip:
 
 ```
 git clone https://github.com/solomonkassa/AirBnB_clone.git
