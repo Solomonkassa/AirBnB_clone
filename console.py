@@ -90,7 +90,6 @@ class HBNBCommand(cmd.Cmd):
           args = arg.split()
           if not validate_classname(args):
               return
-
           new_obj = current_classes[args[0]]()
           new_obj.save()
           print(new_obj.id)
@@ -107,7 +106,6 @@ class HBNBCommand(cmd.Cmd):
           args = arg.split()
           if not validate_classname(args, check_id=True):
               return
-
           instance_objs = storage.all()
           key = "{}.{}".format(args[0], args[1])
           req_instance = instance_objs.get(key, None)
@@ -131,14 +129,12 @@ class HBNBCommand(cmd.Cmd):
           args = arg.split()
           if not validate_classname(args, check_id=True):
               return
-
           instance_objs = storage.all()
           key = "{}.{}".format(args[0], args[1])
           req_instance = instance_objs.get(key, None)
           if req_instance is None:
               print("** no instance found **")
               return
-
           del instance_objs[key]
           storage.save()
         except SyntaxError:
@@ -174,14 +170,12 @@ class HBNBCommand(cmd.Cmd):
           args = arg.split(maxsplit=3)
           if not validate_classname(args, check_id=True):
               return
-
           instance_objs = storage.all()
           key = "{}.{}".format(args[0], args[1])
           req_instance = instance_objs.get(key, None)
           if req_instance is None:
               print("** no instance found **")
               return
-
           match_json = re.findall(r"{.*}", arg)
           if match_json:
               payload = None
