@@ -13,7 +13,7 @@ from models.review import Review
 from models.amenity import Amenity
 from models.place import Place
 
-classes_mapping = {'BaseModel': BaseModel, 'User': User,
+current_classes = {'BaseModel': BaseModel, 'User': User,
                    'Amenity': Amenity, 'City': City, 'State': State,
                    'Place': Place, 'Review': Review}
 
@@ -91,7 +91,7 @@ class HBNBCommand(cmd.Cmd):
             if not validate_classname(args):
                 return
 
-            new_obj = classes_mapping[args[0]]()
+            new_obj = current_classes[args[0]]()
             new_obj.save()
             print(new_obj.id)
         except SyntaxError:
@@ -158,14 +158,14 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 1:
             print(["{}".format(str(v)) for _, v in all_objs.items()])
             return
-        if args[0] not in classes_mapping.keys():
+        if args[0] not in current_classes.keys():
             print("** class doesn't exist **")
             return
         else:
             print(["{}".format(str(v))
                   for _, v in all_objs.items() if type(v).__name__ == args[0]])
             return
-
+     
     def do_update(self, arg: str):
         """Updates an instance based on the class name and id.
         """
@@ -188,8 +188,8 @@ class HBNBCommand(cmd.Cmd):
             except Exception:
                 print("** invalid syntax")
                 return
-            for key, value in payload.items():
-                setattr(req_instance, key, value)
+            for k, v in payload.items():
+                setattr(req_instance, k, v)
             storage.save()
             return
         if not validate_attrs(args):
@@ -203,28 +203,28 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
 
-def validate_classname(line, check_id=False):
+def validate_classname(args, check_id=False):
     """Runs checks on args to validate classname entry.
     """
-    if len(line) < 1:
+    if len(args) < 1:
         print("** class name missing **")
         return False
-    if line[0] not in current_classes.keys():
+    if args[0] not in current_classes.keys():
         print("** class doesn't exist **")
         return False
-    if len(line) < 2 and check_id:
+    if len(args) < 2 and check_id:
         print("** instance id missing **")
         return False
     return True
 
 
-def validate_attrs(line):
+def validate_attrs(args):
     """Runs checks on args to validate classname attributes and values.
     """
-    if len(line) < 3:
+    if len(args) < 3:
         print("** attribute name missing **")
         return False
-    if len(line) < 4:
+    if len(args) < 4:
         print("** value missing **")
         return False
     return True
