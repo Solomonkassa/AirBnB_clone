@@ -159,7 +159,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 1:
             print(["{}".format(str(v)) for _, v in all_objs.items()])
             return
-        if args[0] not classes_mapping.keys():
+        if args[0] not in classes_mapping.keys():
             print("** class doesn't exist **")
             return
         else:
