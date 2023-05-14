@@ -85,18 +85,18 @@ class HBNBCommand(cmd.Cmd):
       
     def do_create(self, arg):
       """Creates a new instance.
-        """
-        try:
-          args = arg.split()
-          if not validate_classname(args):
-            return
-          new_obj = classes_mapping[args[0]]()
-          new_obj.save()
-          print(new_obj.id)
-        except SyntaxError:
-            print("** class name missing **")
-        except NameError:
-            print("** class doesn't exist **")
+      """
+      try:
+        args = arg.split()
+        if not validate_classname(args):
+          return
+        new_obj = classes_mapping[args[0]]()
+        new_obj.save()
+        print(new_obj.id)
+      except SyntaxError:
+        print("** class name missing **")
+      except NameError:
+        print("** class doesn't exist **")
 
     def do_show(self, arg):
         """Prints the string representation of an instance.
