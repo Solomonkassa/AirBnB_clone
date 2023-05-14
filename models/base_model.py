@@ -51,7 +51,7 @@ class BaseModel():
     def to_dict(self):
         """
         returns a dictionary containing all keys/values
-        of __dict__ of the instance
+        of __dict__ of the instance.
         """
         dict = {**self.__dict__}
         dict['__class__'] = type(self).__name__
