@@ -15,7 +15,7 @@ class BaseModel():
     def __init__(self, *args, **kwargs):
         """
         instatiates an object with it's
-        attributes
+        attributes.
         """
         if len(kwargs) > 0:
             for key, value in kwargs.items():
