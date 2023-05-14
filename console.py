@@ -167,38 +167,51 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, arg: str):
         """Updates an instance based on the class name and id.
         """
-        args = arg.split(maxsplit=3)
-        if not validate_classname(args, check_id=True):
-            return
+        try:
+          args = arg.split(maxsplit=3)
+          if not validate_classname(args, check_id=True):
+              return
 
-        instance_objs = storage.all()
-        key = "{}.{}".format(args[0], args[1])
-        req_instance = instance_objs.get(key, None)
-        if req_instance is None:
+          instance_objs = storage.all()
+          key = "{}.{}".format(args[0], args[1])
+          req_instance = instance_objs.get(key, None)
+          if req_instance is None:
+              print("** no instance found **")
+              return
+
+          match_json = re.findall(r"{.*}", arg)
+          if match_json:
+              payload = None
+              try:
+                  payload: dict = json.loads(match_json[0])
+              except Exception:
+                  print("** invalid syntax")
+                  return
+              for k, v in payload.items():
+                  setattr(req_instance, k, v)
+              storage.save()
+              return
+          if not validate_attrs(args):
+              return
+          first_attr = re.findall(r"^[\"\'](.*?)[\"\']", args[3])
+          if first_attr:
+              setattr(req_instance, args[2], first_attr[0])
+          else:
+              value_list = args[3].split()
+              setattr(req_instance, args[2], parse_str(value_list[0]))
+          storage.save()
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
+        except IndexError:
+            print("** instance id missing **")
+        except KeyError:
             print("** no instance found **")
-            return
-
-        match_json = re.findall(r"{.*}", arg)
-        if match_json:
-            payload = None
-            try:
-                payload: dict = json.loads(match_json[0])
-            except Exception:
-                print("** invalid syntax")
-                return
-            for k, v in payload.items():
-                setattr(req_instance, k, v)
-            storage.save()
-            return
-        if not validate_attrs(args):
-            return
-        first_attr = re.findall(r"^[\"\'](.*?)[\"\']", args[3])
-        if first_attr:
-            setattr(req_instance, args[2], first_attr[0])
-        else:
-            value_list = args[3].split()
-            setattr(req_instance, args[2], parse_str(value_list[0]))
-        storage.save()
+        except AttributeError:
+            print("** attribute name missing **")
+        except ValueError:
+            print("** value missing **")
 
 
 def validate_classname(args, check_id=False):
