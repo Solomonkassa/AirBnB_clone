@@ -67,7 +67,7 @@ class TestPlace(unittest.TestCase):
         self.assertNotEqual(p1.updated_at, old_update)
 
     def test_todict(self):
-        """Test method for dict"""
+        """Test method for dict."""
         p1 = Place()
         p2 = Place(**p1.to_dict())
         a_dict = p2.to_dict()
