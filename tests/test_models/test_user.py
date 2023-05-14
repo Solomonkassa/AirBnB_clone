@@ -53,7 +53,7 @@ class TestState(unittest.TestCase):
         self.assertNotEqual(u1.updated_at, old_update)
 
     def test_todict(self):
-        """Test method for dict"""
+        """Test method for dict."""
         u1 = User()
         u2 = User(**u1.to_dict())
         a_dict = u2.to_dict()
