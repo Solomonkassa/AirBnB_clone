@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ Console Module  of the command interpreter."""
+
 import re
 import cmd
 import json
@@ -11,7 +12,6 @@ from models.city import City
 from models.review import Review
 from models.amenity import Amenity
 from models.place import Place
-
 
 classes_mapping = {'BaseModel': BaseModel, 'User': User,
                    'Amenity': Amenity, 'City': City, 'State': State,
