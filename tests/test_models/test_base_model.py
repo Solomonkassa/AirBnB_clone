@@ -40,7 +40,7 @@ class TestBase(unittest.TestCase):
                          "<class 'models.base_model.BaseModel'>")
 
     def test_dict(self):
-        """Test method for dict"""
+        """Test method for dict."""
         b1 = BaseModel()
         b2_uuid = str(uuid.uuid4())
         b2 = BaseModel(id=b2_uuid, name="The weeknd", album="Trilogy")
