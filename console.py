@@ -164,11 +164,10 @@ class HBNBCommand(cmd.Cmd):
                   for _, v in all_objs.items() if type(v).__name__ == args[0]])
             return
 
-    def do_update(self, arg: str):
-        """Updates an instance based on the class name and id.
-        """
+    def do_update(self, line: str):
+        """Updates an object with new info"""
         try:
-          args = arg.split(maxsplit=3)
+          args = line.split(maxsplit=3)
           if not validate_classname(args, check_id=True):
               return
 
@@ -215,7 +214,7 @@ class HBNBCommand(cmd.Cmd):
 
 
 def validate_classname(args, check_id=False):
-    """Runs checks on args to validate classname entry.
+    """Checks on args to validate classname entry.
     """
     if len(args) < 1:
         print("** class name missing **")
@@ -230,7 +229,7 @@ def validate_classname(args, check_id=False):
 
 
 def validate_attrs(args):
-    """Runs checks on args to validate classname attributes and values.
+    """Checks on args to validate classname attributes and values.
     """
     if len(args) < 3:
         print("** attribute name missing **")
