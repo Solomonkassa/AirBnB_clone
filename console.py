@@ -1,30 +1,5 @@
 #!/usr/bin/python3
-"""This module defines the entry point of the command interpreter.
-
-It defines one class, `HBNBCommand()`, which sub-classes the `cmd.Cmd` class.
-This module defines abstractions that allows us to manipulate a powerful
-storage system (FileStorage / DB). This abstraction will also allow us to
-change the type of storage easily without updating all of our codebase.
-
-It allows us to interactively and non-interactively:
-    - create a data model
-    - manage (create, update, destroy, etc) objects via a console / interpreter
-    - store and persist objects to a file (JSON file)
-
-Typical usage example:
-
-    $ ./console
-    (hbnb)
-
-    (hbnb) help
-    Documented commands (type help <topic>):
-    ========================================
-    EOF  create  help  quit
-
-    (hbnb)
-    (hbnb) quit
-    $
-"""
+""" Console Module  of the command interpreter."""
 import re
 import cmd
 import json
@@ -37,27 +12,20 @@ from models.review import Review
 from models.amenity import Amenity
 from models.place import Place
 
-current_classes = {'BaseModel': BaseModel, 'User': User,
+classes = {'BaseModel': BaseModel, 'User': User,
                    'Amenity': Amenity, 'City': City, 'State': State,
                    'Place': Place, 'Review': Review}
 
 
 class HBNBCommand(cmd.Cmd):
-    """The command interpreter.
-
-    This class represents the command interpreter, and the control center
-    of this project. It defines function handlers for all commands inputted
-    in the console and calls the appropriate storage engine APIs to manipulate
-    application data / models.
-
-    It sub-classes Python's `cmd.Cmd` class which provides a simple framework
-    for writing line-oriented command interpreters.
+    """Contains the functionality for the HBNB console.
+       The entry point of the command interpreter.
     """
 
     prompt = "(hbnb) "
 
     def precmd(self, line):
-        """Defines instructions to execute before <line> is interpreted.
+        """ Instructions to execute before <line> is interpreted.
         """
         if not line:
             return '\n'
@@ -94,26 +62,23 @@ class HBNBCommand(cmd.Cmd):
                     re.sub("[\"\']", "", args[0]),
                     re.sub("[\"\']", "", args[1]), args[2])
 
-    def do_help(self, arg):
-        """To get help on a command, type help <topic>.
-        """
-        return super().do_help(arg)
-
     def do_EOF(self, line):
-        """Inbuilt EOF command to gracefully catch errors.
-        """
+        """Quit command to exit the program at end of file"""
         print("")
         return True
 
-    def do_quit(self, arg):
-        """Quit command to exit the program.
-        """
+    def do_quit(self, line):
+        """Quit command to exit the program. """
         return True
 
     def emptyline(self):
-        """Override default `empty line + return` behaviour.
-        """
+        """Ignores empty spaces"""
         pass
+    
+    def do_help(self, line):
+        """To get help on a command, type help <topic>.
+        """
+        return super().do_help(line)
 
     def do_create(self, arg):
         """Creates a new instance.
@@ -122,9 +87,9 @@ class HBNBCommand(cmd.Cmd):
         if not validate_classname(args):
             return
 
-        new_obj = current_classes[args[0]]()
-        new_obj.save()
-        print(new_obj.id)
+        obj = classes[args[0]]()
+        obj.save()
+        print(obj.id)
 
     def do_show(self, arg):
         """Prints the string representation of an instance.
