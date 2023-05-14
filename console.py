@@ -133,7 +133,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 1:
             print(["{}".format(str(v)) for _, v in all_objs.items()])
             return
-        if args[0] not in current_classes.keys():
+        if args[0] not in classes_mapping.keys():
             print("** class doesn't exist **")
             return
         else:
@@ -163,8 +163,8 @@ class HBNBCommand(cmd.Cmd):
             except Exception:
                 print("** invalid syntax")
                 return
-            for k, v in payload.items():
-                setattr(req_instance, k, v)
+            for key, value in payload.items():
+                setattr(req_instance, key, value)
             storage.save()
             return
         if not validate_attrs(args):
@@ -184,7 +184,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 1:
             print("** class name missing **")
             return False
-        if args[0] not in current_classes.keys():
+        if args[0] not in classes_mapping.keys():
             print("** class doesn't exist **")
             return False
         if len(args) < 2 and check_id:
