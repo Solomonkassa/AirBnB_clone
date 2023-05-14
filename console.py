@@ -187,8 +187,8 @@ class HBNBCommand(cmd.Cmd):
               except Exception:
                   print("** invalid syntax")
                   return
-              for k, v in payload.items():
-                  setattr(req_instance, k, v)
+              for key, value in payload.items():
+                  setattr(req_instance, key, value)
               storage.save()
               return
           if not validate_attrs(args):
