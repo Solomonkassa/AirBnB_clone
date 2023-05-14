@@ -209,6 +209,7 @@ class HBNBCommand(cmd.Cmd):
       except ValueError:
         print("** value missing **")
 
+        
 def validate_classname(args, check_id=False):
     """Runs checks on args to validate classname entry.
     """
@@ -223,6 +224,7 @@ def validate_classname(args, check_id=False):
         return False
     return True
 
+  
 def validate_attrs(args):
     """Runs checks on args to validate classname attributes and values.
     """
@@ -234,6 +236,7 @@ def validate_attrs(args):
         return False
     return True
 
+  
 def is_float(x):
     """Checks if `x` is float.
     """
@@ -244,6 +247,7 @@ def is_float(x):
     else:
         return True
 
+      
 def is_int(x):
     """Checks if `x` is int.
     """
@@ -255,6 +259,7 @@ def is_int(x):
     else:
         return a == b
 
+      
 def parse_str(arg):
     """Parse `arg` to an `int`, `float` or `string`.
     """
@@ -267,5 +272,6 @@ def parse_str(arg):
     else:
         return arg
 
+      
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
