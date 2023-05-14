@@ -180,7 +180,7 @@ class HBNBCommand(cmd.Cmd):
           req_instance = instance_objs.get(key, None)
           if req_instance is None:
               print("** no instance found **")
-                return
+              return
           match_json = re.findall(r"{.*}", arg)
           if match_json:
               payload = None
