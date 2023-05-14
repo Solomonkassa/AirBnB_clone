@@ -132,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 1:
             print(["{}".format(str(v)) for _, v in all_objs.items()])
             return
-        if args[0] not in current_classes.keys():
+        if args[0] not in classes.keys():
             print("** class doesn't exist **")
             return
         else:
@@ -183,7 +183,7 @@ def validate_classname(args, check_id=False):
     if len(args) < 1:
         print("** class name missing **")
         return False
-    if args[0] not in current_classes.keys():
+    if args[0] not in classes.keys():
         print("** class doesn't exist **")
         return False
     if len(args) < 2 and check_id:
