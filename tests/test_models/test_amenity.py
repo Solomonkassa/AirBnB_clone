@@ -10,19 +10,22 @@ from models.engine.file_storage import FileStorage
 
 
 class TestAmenity(unittest.TestCase):
-    """Test cases for the `Amenity` class."""
+    """Test cases for the `Amenity` class.
+    """
 
     def setUp(self):
         pass
 
     def tearDown(self) -> None:
-        """Resets FileStorage data."""
+        """Resets FileStorage data.
+        """
         FileStorage._FileStorage__objects = {}
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
 
     def test_params(self):
-        """Test method for class attributes"""
+        """Test method for class attributes
+        """
 
         a1 = Amenity()
         a2 = Amenity(**a1.to_dict())
@@ -34,7 +37,8 @@ class TestAmenity(unittest.TestCase):
         self.assertEqual(a3.name, "")
 
     def test_init(self):
-        """Test method for public instances"""
+        """Test method for public instances
+        """
         a1 = Amenity()
         a2 = Amenity(**a1.to_dict())
         self.assertIsInstance(a1.id, str)
@@ -43,20 +47,23 @@ class TestAmenity(unittest.TestCase):
         self.assertEqual(a1.updated_at, a2.updated_at)
 
     def test_str(self):
-        """Test method for str representation"""
+        """Test method for str representation
+        """
         a1 = Amenity()
         string = f"[{type(a1).__name__}] ({a1.id}) {a1.__dict__}"
         self.assertEqual(a1.__str__(), string)
 
     def test_save(self):
-        """Test method for save"""
+        """Test method for save
+        """
         a1 = Amenity()
         old_update = a1.updated_at
         a1.save()
         self.assertNotEqual(a1.updated_at, old_update)
 
     def test_todict(self):
-        """Test method for dict"""
+        """Test method for dict
+        """
         a1 = Amenity()
         a2 = Amenity(**a1.to_dict())
         a_dict = a2.to_dict()
