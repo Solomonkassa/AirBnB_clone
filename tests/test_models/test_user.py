@@ -10,13 +10,15 @@ from datetime import datetime
 
 
 class TestState(unittest.TestCase):
-    """Test cases for the `User` class."""
+    """Test cases for the `User` class.
+    """
 
     def setUp(self):
         pass
 
     def tearDown(self) -> None:
-        """Resets FileStorage data."""
+        """Resets FileStorage data.
+        """
         FileStorage._FileStorage__objects = {}
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
@@ -31,7 +33,8 @@ class TestState(unittest.TestCase):
         self.assertIsInstance(u1.last_name, str)
 
     def test_init(self):
-        """Test method for public instances."""
+        """Test method for public instances.
+        """
         u1 = User()
         u2 = User(**u1.to_dict())
         self.assertIsInstance(u1.id, str)
@@ -40,20 +43,23 @@ class TestState(unittest.TestCase):
         self.assertEqual(u1.updated_at, u2.updated_at)
 
     def test_str(self):
-        """Test method for str representation."""
+        """Test method for str representation.
+        """
         u1 = User()
         string = f"[{type(u1).__name__}] ({u1.id}) {u1.__dict__}"
         self.assertEqual(u1.__str__(), string)
 
     def test_save(self):
-        """Test method for save."""
+        """Test method for save.
+        """
         u1 = User()
         old_update = u1.updated_at
         u1.save()
         self.assertNotEqual(u1.updated_at, old_update)
 
     def test_todict(self):
-        """Test method for dict."""
+        """Test method for dict.
+        """
         u1 = User()
         u2 = User(**u1.to_dict())
         a_dict = u2.to_dict()
