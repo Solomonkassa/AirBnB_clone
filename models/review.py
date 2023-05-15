@@ -1,7 +1,6 @@
 #!/usr/bin/python3
-"""
-It defines one class, `Review()`,
-which sub-classes the `BaseModel()` class.`
+"""Defines one class, `Review()`,
+Sub-classes the `BaseModel()` class.`
 """
 from models.base_model import BaseModel
 
