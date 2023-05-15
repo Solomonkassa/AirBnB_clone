@@ -62,11 +62,7 @@ class HBNBCommand(cmd.Cmd):
                     re.sub("[\"\']", "", args[0]),
                     re.sub("[\"\']", "", args[1]), args[2])
 
-    def do_help(self, arg):
-        """To get help on a command, type help <topic>.
-        """
-        return super().do_help(arg)
-
+    
     def do_EOF(self, line):
         """Inbuilt EOF command to gracefully catch errors.
         """
@@ -82,6 +78,12 @@ class HBNBCommand(cmd.Cmd):
         """Override default `empty line + return` behaviour.
         """
         pass
+      
+    def do_help(self, arg):
+        """To get help on a command, type help <topic>.
+        """
+        return super().do_help(arg)
+
 
     def do_create(self, arg):
         """Creates a new instance.
